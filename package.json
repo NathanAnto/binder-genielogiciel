@@ -1,5 +1,5 @@
 {
-  "name": "meteor-app",
+  "name": "Binder",
   "private": true,
   "scripts": {
     "start": "meteor run",
