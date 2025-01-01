@@ -1,12 +1,14 @@
-const { Sequelize } = require('sequelize');
-const path = require('path');
+import { Sequelize } from 'sequelize';
+import path from 'path';
 
+// Basit SQLite bağlantısı
 const sequelize = new Sequelize({
   dialect: 'sqlite',
-  storage: 'database.sqlite',
-  logging: false
+  storage: path.join(process.cwd(), 'database.sqlite'), // Docker olmadan önceki gibi
+  logging: console.log
 });
 
+// Test connection function
 const testConnection = async () => {
   try {
     await sequelize.authenticate();
@@ -18,4 +20,4 @@ const testConnection = async () => {
   }
 };
 
-module.exports = { sequelize, testConnection };
+export { sequelize, testConnection };
