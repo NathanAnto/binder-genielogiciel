@@ -1,37 +1,36 @@
 import { Meteor } from 'meteor/meteor';
-import { Link, LinksCollection } from '/imports/api/links';
-
-async function insertLink({ title, url }: Pick<Link, 'title' | 'url'>) {
-  await LinksCollection.insertAsync({ title, url, createdAt: new Date() });
-}
+import db from './db/config';
+import { Book } from './db/models';
+import { get_real_books } from '../data/generate_mock_data';
+import './api/books';
 
 Meteor.startup(async () => {
-  // If the Links collection is empty, add some data.
-  if (await LinksCollection.find().countAsync() === 0) {
-    await insertLink({
-      title: 'Do the Tutorial',
-      url: 'https://www.meteor.com/tutorials/react/creating-an-app',
-    });
+  console.log('Server starting...');
+  
+  try {
+    // Test database connection
+    const isConnected = await db.testConnection();
+    if (!isConnected) {
+      throw new Error('Database connection failed');
+    }
 
-    await insertLink({
-      title: 'Follow the Guide',
-      url: 'https://guide.meteor.com',
-    });
+    // Force sync to create tables
+    await db.sequelize.sync({ force: true });
+    console.log('Database tables created');
 
-    await insertLink({
-      title: 'Read the Docs',
-      url: 'https://docs.meteor.com',
-    });
+    // Load initial data
+    const books = get_real_books();
+    for (const book of books) {
+      await Book.create({
+        ...book,
+        isAvailable: true,
+        bookingDuration: 14
+      });
+    }
+    console.log(`Loaded ${books.length} books`);
 
-    await insertLink({
-      title: 'Discussions',
-      url: 'https://forums.meteor.com',
-    });
+  } catch (error) {
+    console.error('Startup error:', error);
+    process.exit(1);
   }
-
-  // We publish the entire Links collection to all clients.
-  // In order to be fetched in real-time to the clients
-  Meteor.publish("links", function () {
-    return LinksCollection.find();
-  });
 });

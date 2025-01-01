@@ -1,1 +1,29 @@
 node_modules/
+
+
+
+# Database
+
+data/*.db
+
+data/*.sqlite
+
+data/*.sqlite3
+
+
+
+# Environment
+
+.env
+
+.env.*
+
+!.env.example
+
+
+
+# Docker
+
+.docker/*
+
+
