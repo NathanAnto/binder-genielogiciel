@@ -1,0 +1,5 @@
+.meteor/local
+node_modules
+*.log
+.git
+.env 

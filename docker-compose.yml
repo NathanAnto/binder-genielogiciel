@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  db:
+    image: keinos/sqlite3
+    container_name: binder-db
+    volumes:
+      - ./data:/data
+    environment:
+      - SQLITE_DATABASE=books.db
+    command: sh -c "mkdir -p /data && touch /data/books.db && tail -f /dev/null"
+    ports:
+      - "5433:5432"
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "test -f /data/books.db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
