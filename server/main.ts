@@ -1,37 +1,20 @@
 import { Meteor } from 'meteor/meteor';
-import { Link, LinksCollection } from '/imports/api/links';
+import { initDb, insertBook, insertGenre } from './db';
+import { mockBooks, mockGenres } from '/imports/api/collections';
+import { Books } from '/imports/api/BooksCollection';
+import { Genres } from '/imports/api/GenresColleciton';
+import "../imports/api/BookPublications";
+import "../imports/api/GenrePublication";
 
-async function insertLink({ title, url }: Pick<Link, 'title' | 'url'>) {
-  await LinksCollection.insertAsync({ title, url, createdAt: new Date() });
-}
-
+// Initialize the database when the server starts
 Meteor.startup(async () => {
-  // If the Links collection is empty, add some data.
-  if (await LinksCollection.find().countAsync() === 0) {
-    await insertLink({
-      title: 'Do the Tutorial',
-      url: 'https://www.meteor.com/tutorials/react/creating-an-app',
-    });
+    // await initDb();
 
-    await insertLink({
-      title: 'Follow the Guide',
-      url: 'https://guide.meteor.com',
-    });
+    if ((await Books.find().countAsync()) === 0) {
+        mockBooks.forEach(insertBook);
+    }
 
-    await insertLink({
-      title: 'Read the Docs',
-      url: 'https://docs.meteor.com',
-    });
-
-    await insertLink({
-      title: 'Discussions',
-      url: 'https://forums.meteor.com',
-    });
-  }
-
-  // We publish the entire Links collection to all clients.
-  // In order to be fetched in real-time to the clients
-  Meteor.publish("links", function () {
-    return LinksCollection.find();
-  });
+    if ((await Genres.find().countAsync()) === 0) {
+        mockGenres.forEach(insertGenre);
+    }
 });

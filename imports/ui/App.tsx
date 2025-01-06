@@ -1,11 +1,11 @@
 import React from 'react';
-import { Hello } from './Hello';
-import { Info } from './Info';
+import BookList from './components/BookList';
+import GenreList from './components/GenreList';
 
 export const App = () => (
   <div>
     <h1>Welcome to Meteor!</h1>
-    <Hello />
-    <Info />
+    <BookList />
+    <GenreList />
   </div>
 );
