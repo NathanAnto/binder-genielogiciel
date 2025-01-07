@@ -3,6 +3,11 @@ import { initDb, insertBook, insertGenre } from './db';
 import { mockBooks, mockGenres } from '/imports/api/collections';
 import { Books } from '/imports/api/BooksCollection';
 import { Genres } from '/imports/api/GenresColleciton';
+
+// Import methods
+import "../imports/api/GenreMethods"; 
+
+// Import publications
 import "../imports/api/BookPublications";
 import "../imports/api/GenrePublication";
 

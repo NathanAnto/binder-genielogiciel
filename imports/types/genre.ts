@@ -1,4 +1,4 @@
 export default interface Genre {
-    _id: string
+    _id?: string
     name: string
 }
