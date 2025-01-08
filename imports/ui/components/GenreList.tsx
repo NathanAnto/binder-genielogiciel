@@ -1,12 +1,12 @@
 import { useSubscribe, useTracker } from "meteor/react-meteor-data";
 import Genre from "/imports/types/genre";
-import { Genres } from "/imports/api/GenresColleciton";
+import { GenresCollection } from "/imports/api/GenresColleciton";
 import React, { useState } from "react";
 import { Meteor } from "meteor/meteor";
 
 const GenreList: React.FC = () => {
     const isLoading = useSubscribe("genres");
-    const genres: Genre[] = useTracker(() => Genres.find({}).fetch());
+    const genres: Genre[] = useTracker(() => GenresCollection.find({}).fetch());
 
     const [genreName, setGenreName] = useState("");
 

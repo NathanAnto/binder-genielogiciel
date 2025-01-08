@@ -1,8 +1,8 @@
 import { Meteor } from 'meteor/meteor';
-import { initDb, insertBook, insertGenre } from './db';
+import { insertBook, insertGenre } from './db';
 import { mockBooks, mockGenres } from '/imports/api/collections';
-import { Books } from '/imports/api/BooksCollection';
-import { Genres } from '/imports/api/GenresColleciton';
+import { BooksCollection } from '/imports/api/BooksCollection';
+import { GenresCollection } from '/imports/api/GenresColleciton';
 
 // Import methods
 import "../imports/api/GenreMethods"; 
@@ -13,13 +13,11 @@ import "../imports/api/GenrePublication";
 
 // Initialize the database when the server starts
 Meteor.startup(async () => {
-    // await initDb();
-
-    if ((await Books.find().countAsync()) === 0) {
+    if ((await BooksCollection.find().countAsync()) === 0) {
         mockBooks.forEach(insertBook);
     }
 
-    if ((await Genres.find().countAsync()) === 0) {
+    if ((await GenresCollection.find().countAsync()) === 0) {
         mockGenres.forEach(insertGenre);
     }
 });

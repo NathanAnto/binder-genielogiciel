@@ -2,7 +2,7 @@
   "name": "Binder",
   "private": true,
   "scripts": {
-    "start": "meteor run",
+    "start": "meteor",
     "test": "meteor test --once --driver-package meteortesting:mocha",
     "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
     "visualize": "meteor --production --extra-packages bundle-visualizer"
@@ -11,8 +11,7 @@
     "@babel/runtime": "^7.20.7",
     "meteor-node-stubs": "^1.2.5",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "sqlite3": "^5.1.7"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@types/meteor": "^2.9.8",
