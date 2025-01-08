@@ -1,7 +1,20 @@
+import { Meteor } from 'meteor/meteor';
+import { Assets } from 'meteor/meteor';
+import path from 'path';
 import sqlite3 from 'sqlite3';
+sqlite3.verbose();
 
-// Open the booking_app.db database
-const db = new sqlite3.Database('./booking_app.db');
+
+const dbPath = path.join('assets', 'app','booking_app.db');
+console.log(`Database file path: ${dbPath}`);
+let db = new sqlite3.Database(dbPath, (err) => {
+    if (err) {
+        console.error('Database connection error:', err.message);
+    } else {
+        console.log('Connected to the booking_app database.');
+    }
+});
+
 
 /**
  * Execute a SQL query with optional parameters.
@@ -11,10 +24,9 @@ const db = new sqlite3.Database('./booking_app.db');
  */
 export const executeQuery = (query, parms = []) => {
     return new Promise((resolve, reject) => {
-        // Run the query with the given parameters
-        db.all(query, URLSearchParams, (err, rows) => {
-            // Handle errors or return the rows
+        db.all(query, parms, (err, rows) => {
             if (err) {
+                console.error('SQL query error:', err.message);
                 reject(err);
             } else {
                 resolve(rows);

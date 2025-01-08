@@ -1,7 +1,7 @@
 import fs from 'fs';
 import sqlite3 from 'sqlite3';
 
-const DB_FILE = './booking_app.db';         // Path to database file
+const DB_FILE = './private/booking_app.db';         // Path to database file
 const SCHEMA_FILE = './server/schema.sql';  // Path to schema file
 const DATA_FILE = './server/data.sql';      // Path to data file
 
@@ -51,7 +51,13 @@ const initDatabase = () => {
     });
 
     // Close the database connection
-    db.close();
+    db.close((err) => {
+        if (err) {
+            console.error('Error closing the database connection:', err);
+        } else {
+            console.log('Closed the database connection.');
+        }
+    });
 };
 
 // Run the initDatabase function to initialize the database
