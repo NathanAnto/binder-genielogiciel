@@ -1,5 +1,3 @@
-import { Meteor } from 'meteor/meteor';
-import { Assets } from 'meteor/meteor';
 import path from 'path';
 import sqlite3 from 'sqlite3';
 sqlite3.verbose();
@@ -19,12 +17,12 @@ let db = new sqlite3.Database(dbPath, (err) => {
 /**
  * Execute a SQL query with optional parameters.
  * @param {string} query - The SQL query to execute.
- * @param {Array} parms - Optional parameters for the query.
+ * @param {Array} params - Optional parameters for the query.
  * @returns {Promise<Array>} - A promise that resolves with the query results as an array of rows.
  */
-export const executeQuery = (query, parms = []) => {
+export const executeQuery = (query: any, params?: any[]) => {
     return new Promise((resolve, reject) => {
-        db.all(query, parms, (err, rows) => {
+        db.all(query, params, (err, rows) => {
             if (err) {
                 console.error('SQL query error:', err.message);
                 reject(err);

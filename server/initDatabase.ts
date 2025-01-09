@@ -10,7 +10,7 @@ const DATA_FILE = './server/data.sql';      // Path to data file
  * If the database file does not exist, create it using the schema file and feed it data.
  */
 const initDatabase = () => {
-    let db;
+    let db: sqlite3.Database;
 
     if (fs.existsSync(DB_FILE)) {
         console.log('Database already exists. Skipping initialization.');
