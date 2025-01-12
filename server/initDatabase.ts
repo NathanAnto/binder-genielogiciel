@@ -14,7 +14,7 @@ const initDatabase = () => {
 
     if (fs.existsSync(DB_FILE)) {
         console.log('Database already exists. Skipping initialization.');
-        console.log('To update the database, delete it and run server/initDatabase.js');
+        console.log('To update the database, delete it and run server/initDatabase.ts');
         return;
     } else {
         // Read the schema file
