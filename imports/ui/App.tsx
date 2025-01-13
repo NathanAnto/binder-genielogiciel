@@ -5,11 +5,16 @@ import { LoginForm } from './Login';
 
 export const App = () => {
   const user = useTracker(() => Meteor.user());
-
+  function onLogout() {
+    Meteor.logout()
+  };
   return (
     <div className="main">
       {user ? (
-        <div>Bienvenue</div>
+        <div>Bienvenue
+          <button onClick={onLogout}>Logout</button>
+        </div>
+        
       ) : (
         <LoginForm />
       )}
