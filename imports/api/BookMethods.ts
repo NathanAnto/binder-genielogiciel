@@ -1,6 +1,5 @@
 import { Meteor } from "meteor/meteor";
 import Book from "../types/book";
-import '/server/api';
 
 // Function to get all books
 export async function getBooks(): Promise<Book[]> {

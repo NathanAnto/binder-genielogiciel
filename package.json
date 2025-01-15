@@ -7,7 +7,7 @@
     "visualize": "meteor --production --extra-packages bundle-visualizer",
     "init-db": "npx tsx server/initDatabase.ts",
     "postinstall": "npm run init-db",
-    "test": "meteor test --once --driver-package meteortesting:mocha"
+    "test": "meteor test --full-app --driver-package meteortesting:mocha --once"
   },
   "dependencies": {
     "@babel/runtime": "^7.20.7",

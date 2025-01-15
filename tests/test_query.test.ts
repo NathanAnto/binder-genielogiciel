@@ -3,33 +3,48 @@ import { assert } from 'chai';
 import Book from '/imports/types/book';
 import { getBookById, getBooks } from '/imports/api/BookMethods';
 
+const mockBooks: Book[] = [
+  {
+      id: 1,
+      title: "Harry Potter and the Sorcerer's Stone",
+      max_booking_time: 14,
+      author_id: 1,
+      availability: 1,
+  },
+  {
+      id: 2,
+      title: "A Game of Thrones",
+      max_booking_time: 14,
+      author_id: 2,
+      availability: 0,
+  },
+  {
+      id: 3,
+      title: "The Hobbit",
+      max_booking_time: 21,
+      author_id: 3,
+      availability: 1,
+  },
+  {
+      id: 4,
+      title: "Murder on the Orient Express",
+      max_booking_time: 7,
+      author_id: 4,
+      availability: 1,
+  },
+  {
+      id: 5,
+      title: "The Shining",
+      max_booking_time: 10,
+      author_id: 5,
+      availability: 1,
+  },
+];
+
+const mockBook: Book = mockBooks[0];
+
 if (Meteor.isServer) {
   describe('Meteor Server Methods', function () {
-    const mockBooks: Book[] = [
-        {
-            id: 1, title: 'Harry Potter and the Philosopher´s Stone',
-            author_id: 1,
-            availability: 1
-        },
-        {
-            id: 2, title: 'A Game of Thrones',
-            author_id: 2,
-            availability: 1
-        },
-        {
-            id: 3, title: 'The Hobbit',
-            author_id: 3,
-            availability: 1
-        }
-    ];
-    const mockBook: Book[] = [
-        {
-            id: 1, title: 'Harry Potter and the Philosopher´s Stone',
-            author_id: 1,
-            availability: 1
-        }
-    ];
-
     it('can get all books', async function () {
         // Call the server method and get the result
         const books = await Meteor.callAsync('server_getBooks');
@@ -52,9 +67,11 @@ if (Meteor.isServer) {
 
     it("can get book by ID", async function () {
         // Call the server method and get the result
-        const book = await Meteor.callAsync('server_getBookById', 1);
+        const res = await Meteor.callAsync('server_getBookById', 1);
         // Assert that the result is not empty
-        assert.isNotEmpty(book, 'Book should not be empty');
+        assert.isNotEmpty(res, 'Book should not be empty');
+        const book: Book = res[0];
+
         assert.deepEqual(book, mockBook, "Fetched book should match the mock data");
     });
 
@@ -71,28 +88,6 @@ if (Meteor.isServer) {
 
 if (Meteor.isClient) {
   describe('Meteor Client Methods', function () {
-    const mockBooks: Book[] = [
-        {
-            id: 1, title: 'Harry Potter and the Philosopher´s Stone',
-            author_id: 1,
-            availability: 1
-        },
-        {
-            id: 2, title: 'A Game of Thrones',
-            author_id: 2,
-            availability: 1
-        },
-        {
-            id: 3, title: 'The Hobbit',
-            author_id: 3,
-            availability: 1
-        }
-    ];
-    const mockBook: Book = {
-            id: 1, title: 'Harry Potter and the Philosopher´s Stone',
-            author_id: 1,
-            availability: 1
-        };
 
     it('can get all books', async function () {
       // Call the server method and get the result
