@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import sqlite3 from 'sqlite3';
 
-const DB_FILE = './private/booking_app.db';         // Path to database file
+const DB_FILE = './data/booking_app.db'; // Path to database file
 const SCHEMA_FILE = './server/schema.sql';  // Path to schema file
 const DATA_FILE = './server/data.sql';      // Path to data file
 
@@ -11,10 +11,10 @@ const DATA_FILE = './server/data.sql';      // Path to data file
  * If the database file does not exist, create it using the schema file and feed it data.
  */
 const initDatabase = () => {
-    // Ensure the private directory exists
-    const privateDir = path.dirname(DB_FILE);
-    if (!fs.existsSync(privateDir)) {
-        fs.mkdirSync(privateDir, { recursive: true, mode: 0o755 }); // Directory permissions: rwxr-xr-x
+    // Ensure the data directory exists
+    const dataDir = path.dirname(DB_FILE);
+    if (!fs.existsSync(dataDir)) {
+        fs.mkdirSync(dataDir, { recursive: true, mode: 0o755 }); // Directory permissions: rwxr-xr-x
     }
 
     let db: sqlite3.Database;

@@ -4,7 +4,7 @@ sqlite3.verbose();
 
 const dbPath = path.join('assets', 'app','booking_app.db');
 console.log(`Database file path: ${dbPath}`);
-let db = new sqlite3.Database(dbPath, (err) => {
+let db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE, (err) => {
     if (err) {
         console.error('Database connection error:', err.message);
     } else {

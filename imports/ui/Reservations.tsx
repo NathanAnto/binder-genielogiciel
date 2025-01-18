@@ -41,7 +41,10 @@ export default function Reservations() {
             {bookings.map((booking: Booking) => (
                 <div key={booking.id}>
                     <h2>{books.find((b: Book) => b.id === booking.book_id)?.title}</h2>
-                    <button onClick={() => returnBooking(booking.id!)}>Return</button>
+                    <button onClick={() => {
+                        returnBooking(booking.id!);
+                        setBookings(bookings.filter((b: Booking) => b.id !== booking.id));
+                    }}>Return</button>
                 </div>
             ))}
         </div>
