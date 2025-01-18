@@ -2,7 +2,6 @@ import path from 'path';
 import sqlite3 from 'sqlite3';
 sqlite3.verbose();
 
-
 const dbPath = path.join('assets', 'app','booking_app.db');
 console.log(`Database file path: ${dbPath}`);
 let db = new sqlite3.Database(dbPath, (err) => {
@@ -12,7 +11,6 @@ let db = new sqlite3.Database(dbPath, (err) => {
         console.log('Connected to the booking_app database.');
     }
 });
-
 
 /**
  * Execute a SQL query with optional parameters.

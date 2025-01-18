@@ -20,7 +20,7 @@ CREATE TABLE Books (
   FOREIGN KEY(author_id) REFERENCES Authors(id)
 );
 
-CREATE TABLE Booking (
+CREATE TABLE Bookings (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   user_id INTEGER NOT NULL,
   book_id INTEGER NOT NULL,

@@ -19,7 +19,7 @@ INSERT INTO Books (title, author_id, max_booking_time, availability) VALUES
 ('Murder on the Orient Express', 4, 7, 1),
 ('The Shining', 5, 10, 1);
 
-INSERT INTO Booking (user_id, book_id, booking_date) VALUES 
+INSERT INTO Bookings (user_id, book_id, booking_date) VALUES 
 (1, 1, '2025-01-10'),
 (2, 2, '2025-01-12'),
 (3, 3, '2025-01-13'),

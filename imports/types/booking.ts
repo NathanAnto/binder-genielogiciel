@@ -1,6 +1,6 @@
 export interface Booking {
-    id?: number
-    user_id: number
-    book_id: number
+    id?: string
+    user_id: string
+    book_id: string
     booking_date: Date
 }
