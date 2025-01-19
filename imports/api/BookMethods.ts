@@ -12,3 +12,11 @@ export async function getBookById(id: string): Promise<Book> {
     const books: Book[] = await Meteor.callAsync('server_getBookById', id);
     return books[0];
 }
+
+export async function addBook(book: Book): Promise<void> {
+    await Meteor.callAsync('server_addBook', book);
+}
+
+export async function deleteBook(id: string): Promise<void> {
+    await Meteor.callAsync('server_deleteBook', id);
+}

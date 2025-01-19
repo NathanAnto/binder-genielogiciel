@@ -29,6 +29,8 @@ CREATE TABLE Booking (
   FOREIGN KEY(book_id) REFERENCES Books(id)
 );
 
+Tamam simdi kitaplarin database ekledigimde kayit edilmesi gerekiyor bunu en basit sekilde yapar misin 
+
 CREATE TABLE Genres (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   name TEXT

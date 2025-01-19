@@ -19,14 +19,15 @@ export const Admin = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        console.log("Adding book:", newBook); // For debugging
         await addBook(newBook);
         setNewBook({ title: '', author_id: '', max_booking_time: 30, availability: 1 });
-        getBooks().then(setBooks);
+        setBooks(await getBooks()); // Update book list
     };
 
     const handleDelete = async (id: string) => {
         await deleteBook(id);
-        setBooks(await getBooks()); // Kitap listesini güncelle
+        setBooks(await getBooks()); // Update book list
     };
 
     return (
