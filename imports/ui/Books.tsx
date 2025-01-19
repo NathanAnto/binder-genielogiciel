@@ -3,8 +3,7 @@ import { getBooks } from "../api/BookMethods";
 import Book from "../types/book";
 
 export const Books = () => {
-    // TODO: Fetch books from the server and display them here
-    // const books: Book[] = useTracker(() => getBooks());
+    // TODO: Fetch books from the server and display them he
     const [books, setBooks] = useState<Book[]>([]);
 
     // On page load

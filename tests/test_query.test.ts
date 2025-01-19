@@ -1,7 +1,9 @@
 import { Meteor } from 'meteor/meteor';
 import { assert } from 'chai';
+// import { done } from 
 import Book from '/imports/types/book';
 import { getBookById, getBooks } from '/imports/api/BookMethods';
+import '../server/api'
 
 const mockBooks: Book[] = [
   {
@@ -73,11 +75,11 @@ if (Meteor.isServer) {
         const book: Book = res[0];
 
         assert.deepEqual(book, mockBook, "Fetched book should match the mock data");
-    });
+      });
 
     it("can handle errors book by ID", async function () {
         try {
-            await Meteor.callAsync('server_getBookById', 5);
+            await Meteor.callAsync('server_getBookById', -1);
         } catch (error) {
             assert.isNotNull(error, "Error should not be null");
         }

@@ -18,9 +18,6 @@ let db = new sqlite3.Database(dbPath, (err) => {
     }
 });
 
-
-
-
 /**
  * Execute a SQL query with optional parameters.
  * @param {string} query - The SQL query to execute.

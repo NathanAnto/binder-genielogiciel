@@ -1,7 +1,9 @@
+import { useCurrentUser } from '../api/useCurrentUser';
 import React, { useState, useEffect } from 'react';
 import Hammer from 'hammerjs';
 import { swipeLeft, swipeRight } from '../api/SwipeMethods';
 import Book from '/imports/types/book';
+import { newBooking } from '../api/BookingMethods';
 
 const Swipe = () => {
   // State to store the list of books
@@ -10,7 +12,9 @@ const Swipe = () => {
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   // State to track if the swipe was to the left
   const [swipeLeftSide, setSwipeLeftSide] = useState(true);
-
+  
+  const { user, loading, error } = useCurrentUser();
+  
   // Function to get a random book from a list
   const getRandomBook = (books: Book[]): Book | null => {
     if (books.length === 0) return null;
@@ -91,6 +95,15 @@ const Swipe = () => {
     handleSwipeLeft();
   }, []);
   
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+  if (!user) return <div>Not logged in</div>;
+  
+  function newBookingClick(book: Book) {
+    newBooking(user?.id!, book);
+  }
+
   return (
     <div className="swipe-container">
       <div className="swipe-area">
@@ -105,6 +118,7 @@ const Swipe = () => {
               <h2>{selectedBook.title}</h2>
               <p>Author: {selectedBook.author_id}</p>
               <p>Max Booking Time: {selectedBook.max_booking_time} days</p>
+              <button onClick={() => newBookingClick(selectedBook)}>Book</button>
             </div>
           )
         ) : (

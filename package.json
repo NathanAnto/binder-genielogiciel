@@ -7,15 +7,17 @@
     "visualize": "meteor --production --extra-packages bundle-visualizer",
     "init-db": "npx tsx server/initDatabase.ts",
     "postinstall": "npm run init-db",
-    "test": "meteor test --full-app --driver-package meteortesting:mocha --once"
+    "test": "meteor test --full-app --driver-package meteortesting:mocha"
   },
   "dependencies": {
     "@babel/runtime": "^7.20.7",
+    "bcrypt": "^5.1.1",
     "body-parser": "^1.20.3",
     "hammerjs": "^2.0.8",
     "meteor-node-stubs": "^1.2.12",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router": "^7.1.2",
     "sqlite3": "^5.0.0",
     "tests": "^0.0.1"
   },
@@ -30,6 +32,7 @@
     "@types/react-dom": "^18.0.10",
     "@types/sinon": "^17.0.3",
     "chai": "^5.1.2",
+    "react-router-dom": "^6.28.2",
     "sinon": "^19.0.2",
     "ts-node": "^10.9.2",
     "tsx": "^4.19.2",

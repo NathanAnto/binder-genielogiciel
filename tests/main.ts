@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import assert from 'assert';
+
 import '../tests/test_query.test.ts'
 
 describe('Binder', function () {

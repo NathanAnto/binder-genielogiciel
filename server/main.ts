@@ -1,7 +1,20 @@
 import { Meteor } from 'meteor/meteor';
-import './ServerBookMethods'; // Import the API definitions for Books
-import './ServerSwipeMethods'; // Import the API definitions for Swip
+import { Accounts } from 'meteor/accounts-base';
+import { getUsers } from '/imports/api/UserMethods';
+import { User } from '/imports/types/user';
+import './ServerBookMethods';
+import './ServerSwipeMethods';
 
 Meteor.startup(async () => {
-  // Any additional startup logic here
+  const users: User[] = await getUsers();
+
+  for (const user of users) {
+    if (!(await Accounts.findUserByUsername(user.name))) {
+      await Accounts.createUser({
+        username: user.name,
+        password: user.password,
+        email: user.email
+      });
+    }
+  }
 });
