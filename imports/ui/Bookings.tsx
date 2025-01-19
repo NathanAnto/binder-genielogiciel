@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Booking } from '../types/booking';
 import { extendBooking, getBookings, returnBooking } from '../api/BookingMethods';
 import { getBooks } from '../api/BookMethods';
-import Book from '../types/book';
 import { useCurrentUser } from '../api/useCurrentUser';
+import Book from '../types/book';
 
 export default function Bookings() {
     const [bookings, setBookings] = useState<Booking[]>([]);

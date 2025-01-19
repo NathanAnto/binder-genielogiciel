@@ -1,35 +1,27 @@
 import { getBooks } from "../api/BookMethods";
 import React, { useState, useEffect } from "react"
 import Book from "../types/book";
-import { Meteor } from "meteor/meteor";
 import { newBooking } from "../api/BookingMethods";
-import { getUserByEmail } from "../api/UserMethods";
-import { User } from "../types/user";
+import { useCurrentUser } from "../api/useCurrentUser";
 
 export default function Swipe() {
     const [books, setBooks] = useState<Book[]>([]);
-
-    function newBookingClick(book: Book) {
-        const email: string | undefined = Meteor.user()?.emails?.[0]?.address;
-        if(email) {
-            getUserByEmail(email).then((user: User) => {
-                if (user) {
-                    console.log(`Found user ${user.name} with email: ${email}, creating booking...`);
-                    newBooking(user.id!, book);
-                } else {
-                    console.log("User not found");
-                }
-            });
-        } else {
-            console.log(`No email: ${email} found`);
-        }
-    }
 
     useEffect(() => {
         getBooks().then((books) => {
             setBooks(books);
         });
     }, [])
+
+    const { user, loading, error } = useCurrentUser();
+    
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error.message}</div>;
+    if (!user) return <div>Not logged in</div>;
+
+    function newBookingClick(book: Book) {
+        newBooking(user?.id!, book);
+    }
 
     return (<>
         <h1>Swipe</h1>

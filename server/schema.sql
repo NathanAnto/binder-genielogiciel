@@ -15,9 +15,11 @@ CREATE TABLE Books (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   title TEXT NOT NULL,
   author_id INTEGER NOT NULL,
+  genre_id INTEGER NOT NULL,
   max_booking_time INTEGER NOT NULL DEFAULT 30,
   availability INTEGER DEFAULT 1,
-  FOREIGN KEY(author_id) REFERENCES Authors(id)
+  FOREIGN KEY(author_id) REFERENCES Authors(id),
+  FOREIGN KEY(genre_id) REFERENCES Genres(id)
 );
 
 CREATE TABLE Bookings (
