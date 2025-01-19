@@ -12,3 +12,7 @@ export async function getBookings(user_id: string) {
 export async function returnBooking(booking_id: string) {
     await Meteor.callAsync('server_returnBooking', booking_id);
 }
+
+export async function extendBooking(booking_id: string) {
+    await Meteor.callAsync('server_extendBooking', booking_id);
+}

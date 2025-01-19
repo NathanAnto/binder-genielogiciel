@@ -1,15 +1,15 @@
 import React, { Fragment } from "react";
 import { LoginForm } from "./Login";
 import { Meteor } from "meteor/meteor";
-import { useTracker } from "meteor/react-meteor-data";
 import Profile from "./Profile";
-import { BrowserRouter, Route, Routes, Link, useNavigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Swipe from "./Swipe";
 import Navbar from "./Navbar";
+import Bookings from "./Bookings";
+import { useTracker } from "meteor/react-meteor-data";
 
 export const App = () => {
     const user = useTracker(() => Meteor.user());
-
 
     function onLogout() {
         Meteor.logout();
@@ -22,9 +22,9 @@ export const App = () => {
                     <BrowserRouter>
                         <Routes>
                             <Route path='/'>
-                                <Route index element={<Profile onLogout={onLogout} />} />
-                                <Route path='/swipe' element={<Swipe />} />
-                                {/* <Route path='*' element={<NoPage />} /> */}
+                                <Route index element={<Swipe />} />
+                                <Route path='/profile' element={<Profile onLogout={onLogout} />} />
+                                <Route path='/bookings' element={<Bookings />} />
                             </Route>
                         </Routes>
                         <Navbar />

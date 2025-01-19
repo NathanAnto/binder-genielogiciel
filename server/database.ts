@@ -2,9 +2,13 @@ import path from 'path';
 import sqlite3 from 'sqlite3';
 sqlite3.verbose();
 
-const dbPath = path.join(process.cwd(), '..','..','..','..','..','data','booking_app.db');
-
+// Update the database path to a writable location
+// Linux;   "start": "PROJECT_ROOT=$(pwd) meteor run",
+// Windows; "start": "set PROJECT_ROOT=%cd% && meteor run",
+const projectRoot = String(process.env.PROJECT_ROOT?.trim());
+const dbPath = path.resolve(projectRoot, 'data', 'booking_app.db');
 console.log(`Database file path: ${dbPath}`);
+
 let db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
     if (err) {
         console.error('Database connection error:', err.message);

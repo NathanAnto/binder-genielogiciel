@@ -40,41 +40,18 @@ body {
   background-color: #62807e;
 }
 
-/* Navbar styles */
 .navbar {
-  background-color: #62807e;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  background-color: #1d6ec9;
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
   padding: 0.75rem 0;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.navbar .nav-item {
-  flex: 1;
-  text-align: center;
-}
-
 .navbar .nav-link {
-  color: rgba(255, 255, 255, 0.7);
-  padding: 0.5rem 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.navbar .nav-link.active,
-.navbar .nav-link:hover {
   color: #ffffff;
-}
-
-.navbar .nav-label {
-  font-size: 0.75rem;
-  margin-top: 0.25rem;
-  font-weight: 300;
-}
-
-/* Icon styles */
-.fas {
-  font-size: 1.25rem;
+  text-decoration: none;
+  font-size: larger;
 }

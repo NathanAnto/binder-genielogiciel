@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Meteor } from "meteor/meteor";
+import { Accounts } from "meteor/accounts-base";
 
 export const LoginForm = () => {
   const [username, setUsername] = useState("");
@@ -7,8 +8,9 @@ export const LoginForm = () => {
 
   const submit = (e: any) => {
     e.preventDefault();
-
-    Meteor.loginWithPassword(username, password);
+    
+    const hashedPassword = Accounts._hashPassword(password);
+    Meteor.loginWithPassword(username, hashedPassword.digest);
   };
 
   return (

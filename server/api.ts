@@ -9,7 +9,6 @@ Meteor.methods({
         return await executeQuery('SELECT * FROM Users');
     },
     async server_getUserByEmail(email: string): Promise<any> {
-        console.log(`Getting user by email: ${email}`);
         return await executeQuery('SELECT * FROM Users WHERE email = ?', [email]);
     },
     // Book methods
@@ -21,7 +20,6 @@ Meteor.methods({
     },
     // Booking methods
     async server_newBooking(user_id: string, book: Book): Promise<any> {
-        console.log(`New booking for user: ${user_id} and book: ${book}`);
         return await executeQuery('INSERT INTO Bookings (user_id, book_id, booking_date) VALUES (?, ?, CURRENT_DATE)', [user_id, book.id]);
     },
     async server_getBookings(user_id: string): Promise<any> {
@@ -29,6 +27,9 @@ Meteor.methods({
     },
     async server_returnBooking(booking_id: string): Promise<any> {
         return await executeQuery('DELETE FROM Bookings WHERE id = ?', [booking_id]);
+    },
+    async server_extendBooking(booking_id: string): Promise<any> {
+        return await executeQuery('UPDATE Bookings SET booking_date = CURRENT_DATE WHERE id = ?', [booking_id]);
     },
     async querySQL(query) {
         return await executeQuery(query);

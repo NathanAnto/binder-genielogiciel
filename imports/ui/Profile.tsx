@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import Reservations from './Reservations';
+import Bookings from './Bookings';
 
 export default function Profile({ onLogout }: { onLogout: () => void }) {  
   const user = Meteor.user();
@@ -9,8 +9,6 @@ export default function Profile({ onLogout }: { onLogout: () => void }) {
     <div>
       <h1>Welcome, {user?.username}</h1>
       <button onClick={onLogout}>Logout</button>
-
-      <Reservations />
     </div>
   );
 }
