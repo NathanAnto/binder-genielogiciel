@@ -1,11 +1,11 @@
 import React from 'react';
-import Swip from './Swip';
+import Swipe from './Swipe';
 import Books from './Books';
 
 export const App = () => (
   <div>
     <h1>Welcome to Meteor!</h1>
-    <Swip/>
+    <Swipe/>
     <Books/>
   </div>
 );

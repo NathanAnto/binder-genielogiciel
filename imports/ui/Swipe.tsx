@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Hammer from 'hammerjs';
-import { swipLeft, swipRight } from '/imports/api/SwipMethods';
+import { swipeLeft, swipeRight } from '../api/SwipeMethods';
 import Book from '/imports/types/book';
 
-const Swip = () => {
+const Swipe = () => {
   // State to store the list of books
   const [books, setBooks] = useState<Book[]>([]);
   // State to store the selected book
@@ -31,7 +31,7 @@ const Swip = () => {
         try {
           if (books.length === 0) {
             // Fetch books if the list is empty
-            const fetchedBooks = await swipLeft();
+            const fetchedBooks = await swipeLeft();
             const randomBook = getRandomBook(fetchedBooks);
             setBooks(fetchedBooks);
             setSelectedBook(randomBook);
@@ -53,7 +53,7 @@ const Swip = () => {
         try {
           if (selectedBook) {
             // Fetch book details for the selected book
-            const fetchedBook = await swipRight(selectedBook.id);
+            const fetchedBook = await swipeRight(selectedBook.id);
             setSelectedBook(fetchedBook);
             setSwipeLeftSide(false);
           }
@@ -78,7 +78,7 @@ const Swip = () => {
   useEffect(() => {
     const handleSwipeLeft = async () => {
       try {
-        const fetchedBooks = await swipLeft();
+        const fetchedBooks = await swipeLeft();
         const randomBook = getRandomBook(fetchedBooks);
         setBooks(fetchedBooks);
         setSelectedBook(randomBook);
@@ -117,4 +117,4 @@ const Swip = () => {
   );
 };
 
-export default Swip;
+export default Swipe;
