@@ -2,9 +2,10 @@ import path from 'path';
 import sqlite3 from 'sqlite3';
 sqlite3.verbose();
 
-const dbPath = path.join('assets', 'app','booking_app.db');
+const dbPath = path.join(process.cwd(), '..','..','..','..','..','data','booking_app.db');
+
 console.log(`Database file path: ${dbPath}`);
-let db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE, (err) => {
+let db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
     if (err) {
         console.error('Database connection error:', err.message);
     } else {

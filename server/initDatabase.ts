@@ -13,6 +13,7 @@ const DATA_FILE = './server/data.sql';      // Path to data file
 const initDatabase = () => {
     // Ensure the data directory exists
     const dataDir = path.dirname(DB_FILE);
+    
     if (!fs.existsSync(dataDir)) {
         fs.mkdirSync(dataDir, { recursive: true, mode: 0o755 }); // Directory permissions: rwxr-xr-x
     }
