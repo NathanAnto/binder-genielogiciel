@@ -7,13 +7,14 @@ sqlite3.verbose();
 // Windows; "start": "set PROJECT_ROOT=%cd% && meteor run",
 const projectRoot = String(process.env.PROJECT_ROOT?.trim());
 const dbPath = path.resolve(projectRoot, 'data', 'booking_app.db');
-console.log(`Database file path: ${dbPath}`);
-
-let db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
+let db = new sqlite3.Database(dbPath, (err) => {
     if (err) {
         console.error('Database connection error:', err.message);
+        console.error('Full error object:', err);
+        console.error('Attempted database path:', dbPath);
     } else {
-        console.log('Connected to the booking_app database.');
+        console.log('Connected to the booking_app database:');
+        console.log(dbPath);
     }
 });
 
@@ -23,7 +24,7 @@ let db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREA
  * @param {Array} params - Optional parameters for the query.
  * @returns {Promise<Array>} - A promise that resolves with the query results as an array of rows.
  */
-export const executeQuery = (query: any, params?: any[]) => {
+export const executeQuery = (query: string, params?: any[]): Promise<any> => {
     return new Promise((resolve, reject) => {
         db.all(query, params, (err, rows) => {
             if (err) {
