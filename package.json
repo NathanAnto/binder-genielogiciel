@@ -2,7 +2,7 @@
   "name": "Binder",
   "private": true,
   "scripts": {
-    "start": "meteor run",
+    "start": "set PROJECT_ROOT=%cd% && meteor run --open",
     "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
     "visualize": "meteor --production --extra-packages bundle-visualizer",
     "init-db": "npx tsx server/initDatabase.ts",
