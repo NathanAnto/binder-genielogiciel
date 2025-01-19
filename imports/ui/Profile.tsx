@@ -1,6 +1,5 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import Bookings from './Bookings';
 
 export default function Profile({ onLogout }: { onLogout: () => void }) {  
   const user = Meteor.user();
