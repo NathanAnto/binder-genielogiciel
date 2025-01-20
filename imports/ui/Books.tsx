@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { getBooks } from "../api/BookMethods";
 import Book from "../types/book";
+import './Admin.css';
 
-export const Books = () => {
+const Books = () => {
     // TODO: Fetch books from the server and display them here
     // const books: Book[] = useTracker(() => getBooks());
     const [books, setBooks] = useState<Book[]>([]);

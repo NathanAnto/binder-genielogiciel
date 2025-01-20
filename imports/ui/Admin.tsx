@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import Book from '../types/book';
 import { getBooks, addBook, deleteBook } from '../api/BookMethods';
+import './Admin.css';
+import Dashboard from './Dashboard'; // Dashboard'u import edin
 
-export const Admin = () => {
+function Admin() {
     const [books, setBooks] = useState<Book[]>([]);
-    const [newBook, setNewBook] = useState({ title: '', author_id: '', max_booking_time: 30, availability: 1 });
+    const [newBook, setNewBook] = useState({ 
+        title: '', 
+        author_id: '', 
+        max_booking_time: 30, 
+        availability: 1 
+    });
 
     useEffect(() => {
         getBooks()
@@ -19,27 +26,37 @@ export const Admin = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log("Adding book:", newBook); // For debugging
-        await addBook(newBook);
-        setNewBook({ title: '', author_id: '', max_booking_time: 30, availability: 1 });
-        setBooks(await getBooks()); // Update book list
+        try {
+            await addBook(newBook);
+            setNewBook({ title: '', author_id: '', max_booking_time: 30, availability: 1 });
+            const updatedBooks = await getBooks();
+            setBooks(updatedBooks);
+        } catch (error) {
+            console.error("Error adding book:", error);
+        }
     };
 
     const handleDelete = async (id: string) => {
-        await deleteBook(id);
-        setBooks(await getBooks()); // Update book list
+        try {
+            await deleteBook(id);
+            const updatedBooks = await getBooks();
+            setBooks(updatedBooks);
+        } catch (error) {
+            console.error("Error deleting book:", error);
+        }
     };
 
     return (
-        <div>
+        <div className="admin-container">
             <h1>Admin Panel</h1>
-            <form onSubmit={handleSubmit}>
+            <Dashboard /> {/* Dashboard'u render edin */}
+            <form onSubmit={handleSubmit} className="admin-form">
                 <input
                     type="text"
                     name="title"
                     value={newBook.title}
                     onChange={handleInputChange}
-                    placeholder="Title"
+                    placeholder="Kitap Başlığı"
                     required
                 />
                 <input
@@ -47,7 +64,7 @@ export const Admin = () => {
                     name="author_id"
                     value={newBook.author_id}
                     onChange={handleInputChange}
-                    placeholder="Author ID"
+                    placeholder="Yazar ID"
                     required
                 />
                 <input
@@ -55,21 +72,22 @@ export const Admin = () => {
                     name="max_booking_time"
                     value={newBook.max_booking_time}
                     onChange={handleInputChange}
-                    placeholder="Max Booking Time"
+                    placeholder="Maksimum Kiralama Süresi"
                     required
                 />
-                <button type="submit">Add Book</button>
+                <button type="submit">Kitap Ekle</button>
             </form>
-            <div>
-                <h2>Book List</h2>
-                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+
+            <div className="book-list-container">
+                <h2>Kitap Listesi</h2>
+                <table className="book-table">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Title</th>
-                            <th>Max Booking Time</th>
-                            <th>Status</th>
-                            <th>Actions</th>
+                            <th>Başlık</th>
+                            <th>Kiralama Süresi</th>
+                            <th>Durum</th>
+                            <th>İşlemler</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -77,10 +95,15 @@ export const Admin = () => {
                             <tr key={book.id}>
                                 <td>{book.id}</td>
                                 <td>{book.title}</td>
-                                <td>{book.max_booking_time} days</td>
-                                <td>{book.availability ? 'Available' : 'Borrowed'}</td>
+                                <td>{book.max_booking_time} gün</td>
+                                <td>{book.availability ? 'Müsait' : 'Kiralandı'}</td>
                                 <td>
-                                    <button onClick={() => handleDelete(book.id)}>Delete</button>
+                                    <button 
+                                        className="delete-button"
+                                        onClick={() => handleDelete(book.id)}
+                                    >
+                                        Sil
+                                    </button>
                                 </td>
                             </tr>
                         ))}
@@ -89,6 +112,6 @@ export const Admin = () => {
             </div>
         </div>
     );
-};
+}
 
 export default Admin;

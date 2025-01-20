@@ -4,7 +4,7 @@ interface LoginProps {
     onLogin: (isAdmin: boolean) => void;
 }
 
-export const Login = ({ onLogin }: LoginProps) => {
+const Login = ({ onLogin }: LoginProps) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');

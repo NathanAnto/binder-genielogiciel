@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import Books from './Books';
-import Admin from './Admin';
-import Login from './Login';
+import Books from './Books';  // default import
+import Admin from './Admin';  // default import
+import Login from './Login';  // default import
 
-export const App = () => {
+const App = () => {
     const [isAdmin, setIsAdmin] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -46,3 +46,5 @@ export const App = () => {
         </div>
     );
 };
+
+export default App;
