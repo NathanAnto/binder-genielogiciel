@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { getBooks } from "../api/BookMethods";
 import Book from "../types/book";
-import './Admin.css';
 
-const Books = () => {
+
+const Books: React.FC = () => {
     // TODO: Fetch books from the server and display them here
     // const books: Book[] = useTracker(() => getBooks());
     const [books, setBooks] = useState<Book[]>([]);
@@ -18,11 +18,11 @@ const Books = () => {
 
     return (
         <div>
-            <h1>Books</h1>
-            <p>List of available books</p>
+            <h1>Kitaplar</h1>
+            <p>Mevcut kitapların listesi</p>
 
             <ul>
-                {books.length === 0 && <li>No books found</li>}
+                {books.length === 0 && <li>Kitap bulunamadı</li>}
                 {books.map((book: Book) => (
                     <li key={book.id}>{book.title}</li>
                 ))}

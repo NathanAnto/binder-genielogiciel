@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Book from '../types/book';
 import { getBooks, addBook, deleteBook } from '../api/BookMethods';
-import './Admin.css';
-import Dashboard from './Dashboard'; // Dashboard'u import edin
+import Dashboard from './Dashboard';
 
-function Admin() {
+const Admin: React.FC = () => {
     const [books, setBooks] = useState<Book[]>([]);
     const [newBook, setNewBook] = useState({ 
         title: '', 
-        author_id: '', 
+        author_id: 0, 
         max_booking_time: 30, 
         availability: 1 
     });
@@ -28,7 +27,7 @@ function Admin() {
         e.preventDefault();
         try {
             await addBook(newBook);
-            setNewBook({ title: '', author_id: '', max_booking_time: 30, availability: 1 });
+            setNewBook({title: '', author_id: 0, max_booking_time: 30, availability: 1 });
             const updatedBooks = await getBooks();
             setBooks(updatedBooks);
         } catch (error) {
@@ -48,15 +47,16 @@ function Admin() {
 
     return (
         <div className="admin-container">
-            <h1>Admin Panel</h1>
-            <Dashboard /> {/* Dashboard'u render edin */}
+            <h1>Admin Dashboard</h1>
+            <Dashboard />
             <form onSubmit={handleSubmit} className="admin-form">
+                <h2>Add New Book</h2>
                 <input
                     type="text"
                     name="title"
                     value={newBook.title}
                     onChange={handleInputChange}
-                    placeholder="Kitap Başlığı"
+                    placeholder="Book Title"
                     required
                 />
                 <input
@@ -64,7 +64,7 @@ function Admin() {
                     name="author_id"
                     value={newBook.author_id}
                     onChange={handleInputChange}
-                    placeholder="Yazar ID"
+                    placeholder="Author ID"
                     required
                 />
                 <input
@@ -72,22 +72,22 @@ function Admin() {
                     name="max_booking_time"
                     value={newBook.max_booking_time}
                     onChange={handleInputChange}
-                    placeholder="Maksimum Kiralama Süresi"
+                    placeholder="Maximum Booking Time (days)"
                     required
                 />
-                <button type="submit">Kitap Ekle</button>
+                <button type="submit">Add Book</button>
             </form>
 
             <div className="book-list-container">
-                <h2>Kitap Listesi</h2>
+                <h2>Book List</h2>
                 <table className="book-table">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Başlık</th>
-                            <th>Kiralama Süresi</th>
-                            <th>Durum</th>
-                            <th>İşlemler</th>
+                            <th>Title</th>
+                            <th>Booking Time</th>
+                            <th>Status</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -95,14 +95,14 @@ function Admin() {
                             <tr key={book.id}>
                                 <td>{book.id}</td>
                                 <td>{book.title}</td>
-                                <td>{book.max_booking_time} gün</td>
-                                <td>{book.availability ? 'Müsait' : 'Kiralandı'}</td>
+                                <td>{book.max_booking_time} days</td>
+                                <td>{book.availability ? 'Available' : 'Borrowed'}</td>
                                 <td>
                                     <button 
                                         className="delete-button"
-                                        onClick={() => handleDelete(book.id)}
+                                        onClick={() => handleDelete(book.id.toString())}
                                     >
-                                        Sil
+                                        Delete
                                     </button>
                                 </td>
                             </tr>
@@ -112,6 +112,6 @@ function Admin() {
             </div>
         </div>
     );
-}
+};
 
-export default Admin;
+export default Admin;

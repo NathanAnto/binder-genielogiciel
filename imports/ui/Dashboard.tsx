@@ -1,16 +1,27 @@
 import React from 'react';
 
-const Dashboard = () => { 
+const Dashboard: React.FC = () => {
     return (
         <div className="dashboard-container">
-            <h2>Dashboard</h2>
-            <ul>
-                <li>Create a section for displaying the top 10 most booked books.</li>
-                <li>Display user engagement metrics (e.g., daily/weekly bookings).</li>
-                <li>Show cancellation statistics by book or user.</li>
-                <li>Add data filtering options (e.g., by date range).</li>
-                <li>Use bar charts, pie charts, or tables to visualize metrics.</li>
-            </ul>
+            <h2>Analytics Dashboard</h2>
+            <div className="dashboard-grid">
+                <div className="dashboard-card">
+                    <h3>Top 10 Most Booked Books</h3>
+                    <p>Coming soon: Display most popular books</p>
+                </div>
+                <div className="dashboard-card">
+                    <h3>User Engagement</h3>
+                    <p>Coming soon: Daily/weekly booking metrics</p>
+                </div>
+                <div className="dashboard-card">
+                    <h3>Cancellation Statistics</h3>
+                    <p>Coming soon: Book/user cancellation data</p>
+                </div>
+                <div className="dashboard-card">
+                    <h3>Data Filters</h3>
+                    <p>Coming soon: Date range and category filters</p>
+                </div>
+            </div>
         </div>
     );
 };

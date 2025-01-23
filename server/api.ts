@@ -11,7 +11,7 @@ Meteor.methods({
     },
     async querySQL(query) {
         return await executeQuery(query);
-    }
+    },
 
     async server_addBook(book: any): Promise<void> {
         const { title, author_id, max_booking_time, availability } = book;
