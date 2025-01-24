@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { createUser } from "../api/UserMethods";
 import { useNavigate } from "react-router-dom";
+import { Meteor } from 'meteor/meteor';
+
 
 export const CreateUser = () => {
   const [name, setName] = useState("");
@@ -11,17 +13,16 @@ export const CreateUser = () => {
   const handleCreateUser = async (e: any) => {
     e.preventDefault();
     try {
-      await createUser(name, email, password); // Ajout de "name"
+      await createUser(name, email, password); // Appel de la méthode client
       navigate("/");
     } catch (err) {
-      if (err instanceof Error) {
-        alert(`Erreur lors de la création du compte : ${err.message}`);
+      if (err instanceof Meteor.Error) {
+        alert(`Erreur : ${err.reason}`);
       } else {
         alert("Une erreur inattendue est survenue.");
       }
     }
   };
-  
 
   return (
     <form onSubmit={handleCreateUser} className="create-user-form">
