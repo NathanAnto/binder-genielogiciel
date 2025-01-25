@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { createUser } from "../api/UserMethods";
 import { useNavigate } from "react-router-dom";
 import { Meteor } from 'meteor/meteor';
+import { Accounts } from "meteor/accounts-base";
 
 
 export const CreateUser = () => {
@@ -13,7 +14,12 @@ export const CreateUser = () => {
   const handleCreateUser = async (e: any) => {
     e.preventDefault();
     try {
-      await createUser(name, email, password); // Appel de la méthode client
+      await createUser({
+        name: name,
+        email: email,
+        password: Accounts._hashPassword(password).digest,
+        is_admin: 0
+      }); // Appel de la méthode client
       navigate("/");
     } catch (err) {
       if (err instanceof Meteor.Error) {
