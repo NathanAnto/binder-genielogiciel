@@ -28,7 +28,7 @@ const Swipe = () => {
     const element = document.querySelector('.swipe-container');
     if (element) {
       // Initialize Hammer.js on the element
-      const hammer = new Hammer(element);
+      const hammer = new Hammer(element as HTMLElement);
 
       // Function to handle swipe left events
       const handleSwipeLeft = async () => {
@@ -57,7 +57,7 @@ const Swipe = () => {
         try {
           if (selectedBook) {
             // Fetch book details for the selected book
-            const fetchedBook = await swipeRight(selectedBook.id);
+            const fetchedBook = await swipeRight(selectedBook.id!);
             setSelectedBook(fetchedBook);
             setSwipeLeftSide(false);
           }

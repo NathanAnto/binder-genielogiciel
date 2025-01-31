@@ -2,8 +2,11 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { getUsers } from '/imports/api/UserMethods';
 import { User } from '/imports/types/user';
-import './ServerBookMethods';
-import './ServerSwipeMethods';
+
+import "./ServerBookMethods";
+import "./ServerGenreMethods";
+import "./ServerSwipeMethods";
+import "./ServerUserMethods";
 
 Meteor.startup(async () => {
   const users: User[] = await getUsers();

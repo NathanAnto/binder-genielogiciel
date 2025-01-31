@@ -8,7 +8,7 @@ export async function getBooks(): Promise<Book[]> {
 }
 
 // Function to get a book by its ID
-export async function getBookById(id: string): Promise<Book> {
+export async function getBookById(id: number): Promise<Book> {
     const books: Book[] = await Meteor.callAsync('server_getBookById', id);
     return books[0];
 }
