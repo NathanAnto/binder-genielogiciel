@@ -2,6 +2,14 @@ import React, { useState, useEffect } from 'react';
 import Book from '../types/book';
 import { getBooks, addBook, deleteBook } from '../api/BookMethods';
 import Dashboard from './Dashboard';
+import {
+    AdminContainer,
+    AdminForm,
+    BookTable,
+    DashboardContainer,
+    DashboardGrid,
+    DashboardCard
+} from './styles/AdminStyles';
 
 const Admin: React.FC = () => {
     const [books, setBooks] = useState<Book[]>([]);
@@ -46,11 +54,11 @@ const Admin: React.FC = () => {
     };
 
     return (
-        <div className="admin-container">
-            <h1>Admin Dashboard</h1>
+        <AdminContainer>
+            <h1 style={{ color: '#2c3e50', marginBottom: '30px' }}>Admin Dashboard</h1>
             <Dashboard />
-            <form onSubmit={handleSubmit} className="admin-form">
-                <h2>Add New Book</h2>
+            <AdminForm onSubmit={handleSubmit}>
+                <h2 style={{ color: '#2c3e50' }}>Add New Book</h2>
                 <input
                     type="text"
                     name="title"
@@ -76,11 +84,11 @@ const Admin: React.FC = () => {
                     required
                 />
                 <button type="submit">Add Book</button>
-            </form>
+            </AdminForm>
 
-            <div className="book-list-container">
-                <h2>Book List</h2>
-                <table className="book-table">
+            <div style={{ marginTop: '30px' }}>
+                <h2 style={{ color: '#2c3e50', marginBottom: '20px' }}>Book List</h2>
+                <BookTable>
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -108,10 +116,10 @@ const Admin: React.FC = () => {
                             </tr>
                         ))}
                     </tbody>
-                </table>
+                </BookTable>
             </div>
-        </div>
+        </AdminContainer>
     );
 };
 
-export default Admin;
+export default Admin;

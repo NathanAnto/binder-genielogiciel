@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { AdminContainer, AdminForm } from './styles/AdminStyles';
 
 interface LoginProps {
     onLogin: (isAdmin: boolean) => void;
@@ -18,26 +19,28 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
     };
 
     return (
-        <div className="admin-container">
-            <h1>Giriş Yap</h1>
-            <form onSubmit={handleSubmit} className="admin-form">
+        <AdminContainer>
+            <h1 style={{ color: '#2c3e50', textAlign: 'center', marginBottom: '30px' }}>
+                Login
+            </h1>
+            <AdminForm onSubmit={handleSubmit}>
                 <input
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    placeholder="Kullanıcı Adı"
+                    placeholder="Username"
                     required
                 />
                 <input
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Şifre"
+                    placeholder="Password"
                     required
                 />
-                <button type="submit">Giriş</button>
-            </form>
-        </div>
+                <button type="submit">Login</button>
+            </AdminForm>
+        </AdminContainer>
     );
 };
 
