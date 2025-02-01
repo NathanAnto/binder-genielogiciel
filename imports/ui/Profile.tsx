@@ -14,7 +14,7 @@ export default function Profile({ onLogout }: { onLogout: () => void }) {
 
   const handleLogout = () => {
     onLogout();
-    navigate('/'); // Navigate to the login page after logout
+    navigate('..'); // Navigate to the login page after logout
   };
 
   return (

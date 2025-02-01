@@ -10,7 +10,7 @@ export default function Navbar() {
                     <span className="nav-label small">Bookings</span>
                 </Link>
 
-                <Link className="nav-link d-flex flex-column align-items-center" to="/">
+                <Link className="nav-link d-flex flex-column align-items-center" to="/swipe">
                     <i className="fas fa-home fa-lg mb-1"></i>
                     <span className="nav-label small">Swipe</span>
                 </Link>

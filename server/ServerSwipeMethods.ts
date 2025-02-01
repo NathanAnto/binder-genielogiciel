@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { executeQuery } from './database';
+import { Console, log } from 'console';
 
 /**
  * The name of the columns should match the one of the interface
@@ -10,9 +11,12 @@ Meteor.methods({
    * Handles the 'swipe left' action by fetching a maximum of 10 randomly picked available books.
    * @returns {Promise<any>} A promise that resolves to the list of randomly picked available books.
    */
-  async server_swipeLeft(): Promise<any> {
+  async server_swipeLeft(id: number): Promise<any> {
     // Execute a SQL query to fetch a maximum of 10 randomly picked available books
-    const books = await executeQuery('SELECT Books.id, Books.title, Authors.name AS author_id, Books.max_booking_time, Books.availability FROM Books JOIN Authors ON Books.author_id = Authors.id WHERE Books.availability > 0 ORDER BY RANDOM() LIMIT 10;');
+    //const books = await executeQuery('SELECT Books.id, Books.title, Authors.name AS author_id, Books.max_booking_time, Books.availability FROM Books JOIN Authors ON Books.author_id = Authors.id WHERE Books.availability > 0 ORDER BY RANDOM() LIMIT 10;');
+    const books = await executeQuery('SELECT Books.id, Books.title, Authors.name AS author_id, Books.max_booking_time, Books.availability FROM Books JOIN Authors ON Books.author_id = Authors.id LEFT JOIN Preferences ON Books.genre_id = Preferences.genre_id WHERE  Books.availability > 0 AND (Preferences.user_id IS NOT NULL OR NOT EXISTS (SELECT 1 FROM Preferences WHERE user_id = ?)) ORDER BY RANDOM() LIMIT 10;', [id]);
+    console.log(id);
+    console.log(books);
     return books; // Return the fetched books
   },
 
