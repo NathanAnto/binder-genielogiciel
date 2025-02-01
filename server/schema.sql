@@ -31,6 +31,8 @@ CREATE TABLE Bookings (
   FOREIGN KEY(book_id) REFERENCES Books(id)
 );
 
+
+
 CREATE TABLE Genres (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   name TEXT
