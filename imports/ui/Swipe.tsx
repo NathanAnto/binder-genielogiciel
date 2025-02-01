@@ -38,7 +38,7 @@ const Swipe = () => {
   const initializeBooks = async () => {
     try {
       setIsLoading(true);
-      const fetchedBooks = await swipeLeft(user?.id);
+      const fetchedBooks = await swipeLeft(user?.id!);
       const randomBook = getRandomBook(fetchedBooks);
       setBooks(fetchedBooks);
       setSelectedBook(randomBook);
@@ -98,6 +98,46 @@ const Swipe = () => {
     if (element) {
       // Initialize Hammer.js on the element
       const hammer = new Hammer(element as HTMLElement);
+
+      /**
+       * Function to handle swipe left events.
+       */
+      const handleSwipeLeft = async () => {
+        try {
+          if (books.length === 0) {
+            // Fetch books if the list is empty
+            const fetchedBooks = await swipeLeft(user?.id!);
+            const randomBook = getRandomBook(fetchedBooks);
+            setBooks(fetchedBooks);
+            setSelectedBook(randomBook);
+            setSwipeLeftSide(true);
+          } else {
+            // Get a random book from the existing list
+            const randomBook = getRandomBook(books);
+            setSelectedBook(randomBook);
+            setBooks((prevBooks) => prevBooks.filter(book => book.id !== randomBook?.id));
+            setSwipeLeftSide(true);
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      };
+
+      /**
+       * Function to handle swipe right events.
+       */
+      const handleSwipeRight = async () => {
+        try {
+          if (selectedBook) {
+            // Fetch book details for the selected book
+            const fetchedBook = await swipeRight(selectedBook.id!);
+            setSelectedBook(fetchedBook);
+            setSwipeLeftSide(false);
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      };
 
       // Add swipe event listeners
       hammer.on('swipeleft', handleSwipeLeft);

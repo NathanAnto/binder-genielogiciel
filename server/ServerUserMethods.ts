@@ -27,16 +27,16 @@ Meteor.methods({
      * @returns {Promise<any>} A promise that resolves when the user is created.
      * @throws {Meteor.Error} If a user with the same email already exists or if there is a server error.
      */
-    async server_createUser(user: User): Promise<any> {    
+    async server_createUser(user: User): Promise<any> {
         const cleanedEmail = user.email.trim().toLowerCase();
-    
+
         // Use findOneAsync to search for the user
         const existingUser = await Meteor.users.findOneAsync({ 'emails.address': cleanedEmail });
         if (existingUser) {
           console.error("Existing user found:", existingUser);
           throw new Meteor.Error('user-exists', 'A user with this email already exists.');
         }
-    
+
         try {
           // Create the user
           const userId = Accounts.createUser({
