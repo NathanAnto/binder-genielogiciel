@@ -81,6 +81,21 @@ export const AdminForm = styled.form`
             background-color: #357abd;
         }
     }
+
+    select {
+        padding: 12px;
+        border: 1px solid #e0e0e0;
+        border-radius: 6px;
+        font-size: 14px;
+        transition: border-color 0.3s;
+        background-color: white;
+        width: 100%;
+
+        &:focus {
+            outline: none;
+            border-color: #4a90e2;
+        }
+    }
 `;
 
 export const StatisticsDashboard = styled.div`
@@ -90,9 +105,20 @@ export const StatisticsDashboard = styled.div`
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 
     .time-filter {
-        width: 100%;
-        padding: 0.5rem;
-        margin-bottom: 1rem;
+        width: 200px;
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin-bottom: 20px;
+        font-size: 14px;
+        background-color: white;
+        cursor: pointer;
+
+        &:focus {
+            outline: none;
+            border-color: #4a90e2;
+            box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+        }
     }
 
     .stats-grid {
@@ -101,14 +127,24 @@ export const StatisticsDashboard = styled.div`
         gap: 1.5rem;
     }
 
+    .chart-container {
+        margin-top: 1rem;
+        padding: 1rem;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
     .stats-card {
         background: #f8f9fa;
-        padding: 1rem;
+        padding: 1.5rem;
         border-radius: 8px;
+        margin-bottom: 1.5rem;
 
         h3 {
             margin-bottom: 1rem;
             color: #2c3e50;
+            font-size: 1.2rem;
         }
     }
 

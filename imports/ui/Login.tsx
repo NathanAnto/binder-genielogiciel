@@ -1,20 +1,40 @@
 import React, { useState } from 'react';
 import { AdminContainer, AdminForm } from './styles/AdminStyles';
+import { Meteor } from 'meteor/meteor';
 
 interface LoginProps {
     onLogin: (isAdmin: boolean) => void;
 }
 
+// Login component handling user authentication and admin access
 const Login: React.FC<LoginProps> = ({ onLogin }) => {
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (username === 'admin' && password === 'admin') {
-            onLogin(true);
-        } else {
-            onLogin(false);
+        setError('');
+
+        try {
+            // Check admin credentials
+            if (email === 'admin' && password === 'admin') {
+                onLogin(true);
+                return;
+            }
+
+            // Verify user credentials
+            const result = await Meteor.callAsync('server_checkUserCredentials', email, password);
+            console.log('Login result:', result); // For debugging
+
+            if (result.isValid) {
+                onLogin(result.isAdmin);
+            } else {
+                setError('Invalid credentials');
+            }
+        } catch (error) {
+            console.error('Login error:', error);
+            setError('An error occurred during login');
         }
     };
 
@@ -24,11 +44,12 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                 Login
             </h1>
             <AdminForm onSubmit={handleSubmit}>
+                {error && <div style={{ color: 'red', marginBottom: '10px' }}>{error}</div>}
                 <input
                     type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    placeholder="Username"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Email"
                     required
                 />
                 <input

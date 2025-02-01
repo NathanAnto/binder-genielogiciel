@@ -25,8 +25,8 @@ class ErrorBoundary extends Component<Props, State> {
         if (this.state.hasError) {
             return (
                 <div style={{ padding: '20px', textAlign: 'center' }}>
-                    <h1>Üzgünüz, bir şeyler yanlış gitti.</h1>
-                    <p>Lütfen sayfayı yenileyin veya daha sonra tekrar deneyin.</p>
+                    <h1>Sorry, something went wrong.</h1>
+                    <p>Please refresh the page or try again later.</p>
                 </div>
             );
         }
