@@ -9,7 +9,8 @@ Meteor.methods({
      * @returns {Promise<any>} A promise that resolves to the list of all users.
      */
     async server_getUsers(): Promise<any> {
-        return await executeQuery('SELECT * FROM Users');
+        const sql = 'SELECT * FROM Users';
+        return await executeQuery(sql);
     },
 
     /**
@@ -18,7 +19,8 @@ Meteor.methods({
      * @returns {Promise<any>} A promise that resolves to the user with the specified email.
      */
     async server_getUserByEmail(email: string): Promise<any> {
-        return await executeQuery('SELECT * FROM Users WHERE email = ?', [email]);
+        const sql = 'SELECT * FROM Users WHERE email = ?';
+        return await executeQuery(sql, [email]);
     },
 
     /**
@@ -36,20 +38,47 @@ Meteor.methods({
           console.error("Existing user found:", existingUser);
           throw new Meteor.Error('user-exists', 'A user with this email already exists.');
         }
-    
-        try {
-          // Create the user
-          const userId = Accounts.createUser({
+
+        // Create the user
+        const userId = Accounts.createUser({
             username: user.name,
             email: cleanedEmail,
             password: user.password,
-          });
+        });
 
-          console.log("User created successfully, ID:", userId);
-          return await executeQuery('INSERT INTO Users (name, email, password) VALUES (?, ?, ?)', [user.name, user.email, user.password]);
-        } catch (error) {
-          console.error("Error creating user:", error);
-          throw new Meteor.Error('server-error', 'Internal server error while creating the user.');
+        console.log("User created successfully, ID:", userId);
+        const sql = 'INSERT INTO Users (name, email, password) VALUES (?, ?, ?)';
+        return await executeQuery(sql, [user.name, user.email, user.password]);
+    },
+
+    /**
+     * Checks user credentials.
+     * @param {string} email - The email of the user.
+     * @param {string} password - The password of the user.
+     * @returns {Promise<Object>} A promise that resolves to an object indicating if the user is valid and if they are an admin.
+     */
+    async server_checkUserCredentials(email: string, password: string): Promise<any> {
+        // First check for hardcoded admin credentials
+        if (email === 'admin' && password === 'admin') {
+            return { isValid: true, isAdmin: true };
         }
+
+        // Then check database users
+        const sql = `
+            SELECT is_admin 
+            FROM Users 
+            WHERE email = ? AND password = ?
+        `;
+        
+        const user = await executeQuery(sql, [email, password]);
+        
+        if (user && user.length > 0) {
+            return { 
+                isValid: true, 
+                isAdmin: user[0].is_admin === 1 
+            };
+        }
+
+        return { isValid: false, isAdmin: false };
     }
 });
