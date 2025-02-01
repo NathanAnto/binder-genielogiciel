@@ -1,8 +1,8 @@
 export default interface Book {
-    id?: string;
+    id?: number;
     title: string;
     max_booking_time: number;
-    author_id: number | string;
+    author_id: number;
     availability: number;
     genre_id: number;
 }

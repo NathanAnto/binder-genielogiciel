@@ -3,6 +3,8 @@ import { Accounts } from 'meteor/accounts-base';
 import { getUsers } from '/imports/api/UserMethods';
 import { User } from '/imports/types/user';
 import './ServerBookMethods';
+import './ServerGenreMethods';
+import './ServerPreferenceMethods';
 import './ServerSwipeMethods';
 import './ServerUserMethods';
 

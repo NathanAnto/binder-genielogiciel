@@ -69,7 +69,7 @@ const Swipe = () => {
         try {
           if (selectedBook) {
             // Fetch book details for the selected book
-            const fetchedBook = await swipeRight(selectedBook.id);
+            const fetchedBook = await swipeRight(selectedBook.id!);
             setSelectedBook(fetchedBook);
             setSwipeLeftSide(false);
           }
