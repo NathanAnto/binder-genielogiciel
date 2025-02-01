@@ -1,4 +1,4 @@
-export default interface Genre {
+export interface Author {
     id?: number
     name: string
 }
