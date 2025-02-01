@@ -6,7 +6,13 @@ import Book from "../types/book";
  * @returns {Promise<Book[]>} A promise that resolves to the list of all books.
  */
 export async function getBooks(): Promise<Book[]> {
-    const books: Book[] = await Meteor.callAsync('server_getBooks');
+    let books: Book[];
+    try {
+        books = await Meteor.callAsync('server_getBooks');
+    } catch (error) {
+        console.error('Error fetching books:', error);
+        throw error;
+    }
     return books;
 }
 
@@ -16,11 +22,21 @@ export async function getBooks(): Promise<Book[]> {
  * @returns {Promise<Book>} A promise that resolves to the book with the specified ID.
  */
 export async function getBookById(id: string): Promise<Book> {
-    const books: Book[] = await Meteor.callAsync('server_getBookById', id);
+    let books: Book[];
+    try {
+        books = await Meteor.callAsync('server_getBookById', id);
+    } catch (error) {
+        console.error('Error fetching book by ID:', error);
+        throw error;
+    }
     return books[0];
 }
 
-// Add a new book to the library
+/**
+ * Adds a new book to the library.
+ * @param {Book} book - The book to add.
+ * @returns {Promise<void>} A promise that resolves when the book is added.
+ */
 export async function addBook(book: Book): Promise<void> {
     try {
         await Meteor.callAsync('server_addBook', {
@@ -36,7 +52,11 @@ export async function addBook(book: Book): Promise<void> {
     }
 }
 
-// Delete a book from the library
+/**
+ * Deletes a book from the library.
+ * @param {string} bookId - The ID of the book to delete.
+ * @returns {Promise<void>} A promise that resolves when the book is deleted.
+ */
 export async function deleteBook(bookId: string): Promise<void> {
     try {
         await Meteor.callAsync('server_deleteBook', bookId);
@@ -46,7 +66,12 @@ export async function deleteBook(bookId: string): Promise<void> {
     }
 }
 
-// Update book availability
+/**
+ * Updates the availability of a book.
+ * @param {string} bookId - The ID of the book to update.
+ * @param {boolean} availability - The new availability status of the book.
+ * @returns {Promise<void>} A promise that resolves when the book's availability is updated.
+ */
 export async function updateBookAvailability(bookId: string, availability: boolean): Promise<void> {
     try {
         await Meteor.callAsync('server_updateBookAvailability', bookId, availability);
