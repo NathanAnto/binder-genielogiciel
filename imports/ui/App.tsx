@@ -1,60 +1,53 @@
-import React, { useState } from 'react';
-import Books from './Books';
-import Admin from './Admin';
-import Login from './Login';
-import ErrorBoundary from './ErrorBoundary';
+import React, { Fragment } from "react";
+import { LoginForm } from "./Login";
+import { CreateUser } from "./CreateUser"; // Import the CreateUser component
+import { Meteor } from "meteor/meteor";
+import Profile from "./Profile";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Swipe from "./Swipe";
+import Navbar from "./Navbar";
+import Bookings from "./Bookings";
+import { useTracker } from "meteor/react-meteor-data";
 
-const App: React.FC = () => {
-    const [isAdmin, setIsAdmin] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+/**
+ * Main application component.
+ * @returns {JSX.Element} The main application component.
+ */
+export const App = () => {
+    const user = useTracker(() => Meteor.user());
 
-    const handleLogin = (adminStatus: boolean) => {
-        console.log(adminStatus) 
-        setIsAdmin(adminStatus);
-        setIsLoggedIn(true);
-    };
-
-    console.log(isAdmin)
-    console.log(isLoggedIn)
-
-    if (!isLoggedIn) {
-        return (
-            <ErrorBoundary>
-                <Login onLogin={handleLogin} />
-            </ErrorBoundary>
-        );
+    /**
+     * Handles user logout.
+     */
+    function onLogout() {
+        Meteor.logout();
     }
 
     return (
-        <ErrorBoundary>
-            <div>
-                <button 
-                    onClick={() => setIsLoggedIn(false)}
-                    style={{
-                        position: 'absolute',
-                        top: '10px',
-                        right: '10px',
-                        padding: '8px',
-                        backgroundColor: '#ff4444',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '4px',
-                        cursor: 'pointer'
-                    }}
-                >
-                    Logout
-                </button>
-
-                {isAdmin ? (
-                    <Admin />
-                ) : (
-                    <>
-                        <h1>Welcome to Binder</h1>
-                        <Books />
-                    </>
-                )}
-            </div>
-        </ErrorBoundary>
+        <div className='main'>
+            {user ? (
+                <>
+                    <Fragment>
+                        <BrowserRouter>
+                            <Routes>
+                                <Route path="/" element={<LoginForm />} />
+                                <Route path='/swipe' element={<Swipe />} />
+                                <Route path='/profile' element={<Profile onLogout={onLogout} />} />
+                                <Route path='/bookings' element={<Bookings />} />
+                            </Routes>
+                            <Navbar />
+                        </BrowserRouter>
+                    </Fragment>
+                </>
+            ) : (
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="/" element={<LoginForm />} />
+                        <Route path="/create-user" element={<CreateUser />} />
+                    </Routes>
+                </BrowserRouter>
+            )}
+        </div>
     );
 };
 
