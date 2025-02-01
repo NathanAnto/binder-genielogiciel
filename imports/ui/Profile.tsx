@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { Meteor } from 'meteor/meteor';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getUserPreferences } from '../api/PreferenceMethods';
 import { Preference } from '../types/preference';
-import Genre from '../types/genre';
+import { Genre } from '../types/genre';
 import { getGenres } from '../api/GenreMethods';
-import { getUserByEmail } from '../api/UserMethods';
-import { User } from '../types/user';
 import { useCurrentUser } from '../api/useCurrentUser';
+import Admin from './Admin';
 
 /**
  * Profile component to display the user's profile and handle logout.
@@ -46,16 +44,26 @@ export default function Profile({ onLogout }: { onLogout: () => void }) {
   return (
     <div>
       <h1>Welcome, {user?.name}</h1>
-      <h2>Preferences</h2>
-      {
-        genres.map((genre: Genre) => {
-          return (
-            <div key={genre.id}>
-              <p>{genre.name}</p>
-            </div>
-          );
-        })
-      }
+      <div>
+      {user.is_admin ? (
+          <div>
+          <h2>Preferences</h2>
+          {
+            genres.map((genre: Genre) => {
+              return (
+                <div key={genre.id}>
+                  <p>{genre.name}</p>
+                </div>
+              );
+            })
+          }
+            {<Admin />}
+          </div>
+        ):(
+          <div>
+          </div>
+      )}
+        </div>
       {/* <button onClick={}></button> */}
 
       <button onClick={handleLogout}>Logout</button>

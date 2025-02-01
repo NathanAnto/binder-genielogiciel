@@ -3,8 +3,8 @@ import { createUser, getUserByEmail } from "../api/UserMethods";
 import { useNavigate } from "react-router-dom";
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from "meteor/accounts-base";
-import { createGenre, getGenres } from "../api/GenreMethods";
-import Genre from "../types/genre";
+import { getGenres } from "../api/GenreMethods";
+import { Genre } from "../types/genre";
 import { createPreference } from "../api/PreferenceMethods";
 import { User } from "../types/user";
 

@@ -57,7 +57,7 @@ export async function addBook(book: Book): Promise<void> {
  * @param {string} bookId - The ID of the book to delete.
  * @returns {Promise<void>} A promise that resolves when the book is deleted.
  */
-export async function deleteBook(bookId: string): Promise<void> {
+export async function deleteBook(bookId: number|undefined): Promise<void> {
     try {
         await Meteor.callAsync('server_deleteBook', bookId);
     } catch (error) {
@@ -72,7 +72,7 @@ export async function deleteBook(bookId: string): Promise<void> {
  * @param {boolean} availability - The new availability status of the book.
  * @returns {Promise<void>} A promise that resolves when the book's availability is updated.
  */
-export async function updateBookAvailability(bookId: string, availability: boolean): Promise<void> {
+export async function updateBookAvailability(bookId: number|undefined, availability: boolean): Promise<void> {
     try {
         await Meteor.callAsync('server_updateBookAvailability', bookId, availability);
     } catch (error) {

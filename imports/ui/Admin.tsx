@@ -13,16 +13,16 @@ import {
 import Book from '../types/book';
 import { getBooks, addBook, deleteBook, updateBookAvailability } from '../api/BookMethods';
 import {
-    AdminContainer,
     AdminHeader,
     AdminContent,
-    AdminForm,
     BookTable,
-    StatisticsDashboard,
-    AvailabilityToggle
+    StatisticsDashboard
 } from './styles/AdminStyles';
 import { Meteor } from 'meteor/meteor';
 import styled from 'styled-components';
+
+import { Author } from '../types/author';
+import { Genre } from '../types/genre';
 
 // Register ChartJS components
 ChartJS.register(
@@ -35,19 +35,9 @@ ChartJS.register(
     ArcElement
 );
 
-interface Author {
-    id: number;
-    name: string;
-}
-
-interface Genre {
-    id: number;
-    name: string;
-}
-
 // Main admin panel component for managing books and viewing statistics
 const Admin: React.FC = () => {
-    const [books, setBooks] = useState<Book[]>([]);
+    const [, setBooks] = useState<Book[]>([]);
     const [newBook, setNewBook] = useState({ 
         title: '', 
         author_id: 0,
@@ -145,7 +135,7 @@ const Admin: React.FC = () => {
         }
     };
 
-    const handleDeleteBook = async (bookId: string) => {
+    const handleDeleteBook = async (bookId: number|undefined) => {
         if (window.confirm('Are you sure you want to delete this book?')) {
             try {
                 await deleteBook(bookId);
@@ -162,7 +152,7 @@ const Admin: React.FC = () => {
         setTimeFilter(e.target.value);
     };
 
-    const handleAvailabilityToggle = async (bookId: string, currentAvailability: boolean) => {
+    const handleAvailabilityToggle = async (bookId: number|undefined, currentAvailability: boolean) => {
         try {
             await updateBookAvailability(bookId, !currentAvailability);
             // Kitap listesini yenile
@@ -319,8 +309,8 @@ const Admin: React.FC = () => {
                                 <tr key={book.id}>
                                     <td>{book.id}</td>
                                     <td>{book.title}</td>
-                                    <td>{book.author_name}</td>
-                                    <td>{book.genre_name}</td>
+                                    <td>{book.author_id}</td>
+                                    <td>{book.genre_id}</td>
                                     <td>{book.max_booking_time} days</td>
                                     <td>
                                         <AvailabilityToggle 
