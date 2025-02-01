@@ -3,6 +3,10 @@ import { User } from '../types/user';
 import { getUserByEmail } from './UserMethods';
 import { Meteor } from 'meteor/meteor';
 
+/**
+ * Custom hook to fetch the current user.
+ * @returns {Object} An object containing the current user, loading state, and error state.
+ */
 export function useCurrentUser() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
