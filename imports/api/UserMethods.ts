@@ -28,3 +28,14 @@ export async function getUserByEmail(email: string): Promise<User> {
 export async function createUser(user: User): Promise<void> {
     return await Meteor.callAsync('server_createUser', user);
 }
+
+// Check user credentials and admin status
+export async function checkUserCredentials(email: string, password: string): Promise<{isValid: boolean, isAdmin: boolean}> {
+    try {
+        const result = await Meteor.callAsync('server_checkUserCredentials', email, password);
+        return result;
+    } catch (error) {
+        console.error('Error checking credentials:', error);
+        throw error;
+    }
+}
