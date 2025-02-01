@@ -1,5 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
+import { useNavigate } from 'react-router-dom';
 
 /**
  * Profile component to display the user's profile and handle logout.
@@ -9,11 +10,17 @@ import { Meteor } from 'meteor/meteor';
  */
 export default function Profile({ onLogout }: { onLogout: () => void }) {  
   const user = Meteor.user();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    onLogout();
+    navigate('/'); // Navigate to the login page after logout
+  };
 
   return (
     <div>
       <h1>Welcome, {user?.username}</h1>
-      <button onClick={onLogout}>Logout</button>
+      <button onClick={handleLogout}>Logout</button>
     </div>
   );
 }
