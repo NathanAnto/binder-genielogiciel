@@ -1,6 +1,7 @@
 -- Insert Users
 INSERT INTO Users (id, name, email, password, is_admin) VALUES 
-(1, 'Nathan', 'nathan@test.com', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 0);
+(1, 'Nathan', 'nathan@test.com', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 0),
+(2, 'Admin', 'admin@test.com', '60303ae22b998861bce3b28f33eec1be758a213c86c93c076dbe9f558c11c752', 1);
 
 -- Insert Authors
 INSERT INTO Authors (id, name) VALUES
