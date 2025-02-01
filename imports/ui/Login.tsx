@@ -3,12 +3,20 @@ import { Meteor } from "meteor/meteor";
 import { Accounts } from "meteor/accounts-base";
 import { useNavigate } from "react-router-dom";
 
+/**
+ * LoginForm component to handle user login.
+ * @returns {JSX.Element} The LoginForm component.
+ */
 export const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const submit = (e: any) => {
+  /**
+   * Handles the form submission to log in the user.
+   * @param {React.FormEvent<HTMLFormElement>} e - The form submission event.
+   */
+  const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const hashedPassword = Accounts._hashPassword(password);
     Meteor.loginWithPassword(username, hashedPassword.digest);

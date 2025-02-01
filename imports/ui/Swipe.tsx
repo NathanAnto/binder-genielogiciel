@@ -5,6 +5,10 @@ import { swipeLeft, swipeRight } from '../api/SwipeMethods';
 import Book from '/imports/types/book';
 import { newBooking } from '../api/BookingMethods';
 
+/**
+ * Swipe component to handle book swiping actions.
+ * @returns {JSX.Element} The Swipe component.
+ */
 const Swipe = () => {
   // State to store the list of books
   const [books, setBooks] = useState<Book[]>([]);
@@ -15,7 +19,11 @@ const Swipe = () => {
   
   const { user, loading, error } = useCurrentUser();
   
-  // Function to get a random book from a list
+  /**
+   * Function to get a random book from a list.
+   * @param {Book[]} books - The list of books.
+   * @returns {Book | null} A random book from the list or null if the list is empty.
+   */
   const getRandomBook = (books: Book[]): Book | null => {
     if (books.length === 0) return null;
     const randomIndex = Math.floor(Math.random() * books.length);
@@ -30,7 +38,9 @@ const Swipe = () => {
       // Initialize Hammer.js on the element
       const hammer = new Hammer(element);
 
-      // Function to handle swipe left events
+      /**
+       * Function to handle swipe left events.
+       */
       const handleSwipeLeft = async () => {
         try {
           if (books.length === 0) {
@@ -52,7 +62,9 @@ const Swipe = () => {
         }
       };
 
-      // Function to handle swipe right events
+      /**
+       * Function to handle swipe right events.
+       */
       const handleSwipeRight = async () => {
         try {
           if (selectedBook) {
@@ -100,6 +112,10 @@ const Swipe = () => {
   if (error) return <div>Error: {error.message}</div>;
   if (!user) return <div>Not logged in</div>;
   
+  /**
+   * Handles the click event to create a new booking.
+   * @param {Book} book - The book to book.
+   */
   function newBookingClick(book: Book) {
     newBooking(user?.id!, book);
   }

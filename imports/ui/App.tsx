@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { LoginForm } from "./Login";
-import { CreateUser } from "./CreateUser"; // Importer le composant CreateUser
+import { CreateUser } from "./CreateUser"; // Import the CreateUser component
 import { Meteor } from "meteor/meteor";
 import Profile from "./Profile";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -9,9 +9,16 @@ import Navbar from "./Navbar";
 import Bookings from "./Bookings";
 import { useTracker } from "meteor/react-meteor-data";
 
+/**
+ * Main application component.
+ * @returns {JSX.Element} The main application component.
+ */
 export const App = () => {
     const user = useTracker(() => Meteor.user());
 
+    /**
+     * Handles user logout.
+     */
     function onLogout() {
         Meteor.logout();
     }

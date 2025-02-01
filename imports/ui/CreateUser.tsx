@@ -4,14 +4,21 @@ import { useNavigate } from "react-router-dom";
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from "meteor/accounts-base";
 
-
+/**
+ * CreateUser component to handle user registration.
+ * @returns {JSX.Element} The CreateUser component.
+ */
 export const CreateUser = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleCreateUser = async (e: any) => {
+  /**
+   * Handles the form submission to create a new user.
+   * @param {React.FormEvent<HTMLFormElement>} e - The form submission event.
+   */
+  const handleCreateUser = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       await createUser({
@@ -19,7 +26,7 @@ export const CreateUser = () => {
         email: email,
         password: Accounts._hashPassword(password).digest,
         is_admin: 0
-      }); // Appel de la méthode client
+      }); // Call the client method
       navigate("/");
     } catch (err) {
       if (err instanceof Meteor.Error) {
