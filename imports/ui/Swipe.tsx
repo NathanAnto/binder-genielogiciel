@@ -38,14 +38,11 @@ const Swipe = () => {
   const initializeBooks = async () => {
     try {
       setIsLoading(true);
-      console.log("init book ...");
-      console.log(user);
       const fetchedBooks = await swipeLeft(user?.id);
       const randomBook = getRandomBook(fetchedBooks);
       setBooks(fetchedBooks);
       setSelectedBook(randomBook);
       setSwipeLeftSide(true);
-      console.log("... done");
     } catch (error) {
       console.error('Error initializing books:', error);
     } finally {
