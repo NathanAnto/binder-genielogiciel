@@ -9,6 +9,41 @@ export const AdminContainer = styled.div`
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 `;
 
+export const AdminHeader = styled.div`
+    background: #6c5ce7;
+    padding: 1rem 2rem;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .header-left {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        font-size: 1.2rem;
+    }
+
+    .admin-user {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+`;
+
+export const AdminContent = styled.div`
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    padding: 2rem;
+    
+    .main-section {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+`;
+
 export const AdminForm = styled.form`
     display: flex;
     flex-direction: column;
@@ -48,39 +83,50 @@ export const AdminForm = styled.form`
     }
 `;
 
-export const DashboardContainer = styled.div`
-    margin-top: 20px;
-    padding: 20px;
+export const StatisticsDashboard = styled.div`
     background: white;
+    padding: 1.5rem;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-`;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 
-export const DashboardGrid = styled.div`
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    margin-top: 20px;
-`;
-
-export const DashboardCard = styled.div`
-    padding: 20px;
-    background: #f8f9fa;
-    border-radius: 8px;
-    border: 1px solid #e0e0e0;
-    transition: transform 0.3s;
-
-    &:hover {
-        transform: translateY(-5px);
+    .time-filter {
+        width: 100%;
+        padding: 0.5rem;
+        margin-bottom: 1rem;
     }
 
-    h3 {
-        color: #2c3e50;
-        margin-bottom: 10px;
+    .stats-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
     }
 
-    p {
-        color: #666;
+    .stats-card {
+        background: #f8f9fa;
+        padding: 1rem;
+        border-radius: 8px;
+
+        h3 {
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+    }
+
+    .stats-info {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .stat-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        
+        .value {
+            font-weight: bold;
+            color: #6c5ce7;
+        }
     }
 `;
 
