@@ -41,5 +41,6 @@ CREATE TABLE Preferences (
   user_id INTEGER NOT NULL,
   genre_id INTEGER NOT NULL,
   FOREIGN KEY(user_id) REFERENCES Users(id),
-  FOREIGN KEY(genre_id) REFERENCES Genres(id)
+  FOREIGN KEY(genre_id) REFERENCES Genres(id),
+  UNIQUE(user_id, genre_id)
 );

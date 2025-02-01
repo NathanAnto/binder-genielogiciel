@@ -19,7 +19,13 @@ export const LoginForm = () => {
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const hashedPassword = Accounts._hashPassword(password);
-    Meteor.loginWithPassword(username, hashedPassword.digest);
+    Meteor.loginWithPassword(username, hashedPassword.digest, (error) => {
+      if (error) {
+        console.error("Login failed:", error);
+      } else {
+        navigate("/swipe"); // Navigate to the swipe page
+      }
+    });
   };
 
   return (

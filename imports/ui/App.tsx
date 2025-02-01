@@ -30,11 +30,10 @@ export const App = () => {
                     <Fragment>
                         <BrowserRouter>
                             <Routes>
-                                <Route path='/'>
-                                    <Route index element={<Swipe />} />
-                                    <Route path='/profile' element={<Profile onLogout={onLogout} />} />
-                                    <Route path='/bookings' element={<Bookings />} />
-                                </Route>
+                                <Route path="/" element={<LoginForm />} />
+                                <Route path='/swipe' element={<Swipe />} />
+                                <Route path='/profile' element={<Profile onLogout={onLogout} />} />
+                                <Route path='/bookings' element={<Bookings />} />
                             </Routes>
                             <Navbar />
                         </BrowserRouter>

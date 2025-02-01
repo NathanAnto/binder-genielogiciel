@@ -3,6 +3,6 @@ export default interface Book {
     title: string;
     max_booking_time: number;
     author_id: number;
-    availability: number;
     genre_id: number;
+    availability: number;
 }

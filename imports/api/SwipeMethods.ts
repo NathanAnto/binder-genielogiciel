@@ -5,9 +5,9 @@ import Book from '../types/book';
  * Handles the 'swipe left' action by fetching a list of books.
  * @returns {Promise<Book[]>} A promise that resolves to the list of books.
  */
-export async function swipeLeft(): Promise<Book[]> {
+export async function swipeLeft(user_id: number): Promise<Book[]> {
   // Call the Meteor method 'server_swipeLeft' asynchronously and fetch the books
-  const books = await Meteor.callAsync('server_swipeLeft');
+  const books = await Meteor.callAsync('server_swipeLeft', user_id);
   return books;
 }
 
