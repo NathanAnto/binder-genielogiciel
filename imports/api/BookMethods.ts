@@ -10,17 +10,12 @@ export async function getBooks(): Promise<Book[]> {
     return books;
 }
 
-<<<<<<< HEAD
-// Function to get a book by its ID
-export async function getBookById(id: number): Promise<Book> {
-=======
 /**
  * Fetches a book by its ID from the server.
  * @param {string} id - The ID of the book to fetch.
  * @returns {Promise<Book>} A promise that resolves to the book with the specified ID.
  */
 export async function getBookById(id: string): Promise<Book> {
->>>>>>> create-user
     const books: Book[] = await Meteor.callAsync('server_getBookById', id);
     return books[0];
 }

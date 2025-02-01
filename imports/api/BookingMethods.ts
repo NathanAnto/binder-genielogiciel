@@ -1,21 +1,6 @@
 import { Meteor } from "meteor/meteor";
 import Book from "../types/book";
 
-<<<<<<< HEAD
-export async function newBooking(user_id: number, book: Book) {
-    await Meteor.callAsync('server_newBooking', user_id, book);
-}
-
-export async function getBookings(user_id: number) {
-    return await Meteor.callAsync('server_getBookings', user_id);
-}
-
-export async function returnBooking(booking_id: number) {
-    await Meteor.callAsync('server_returnBooking', booking_id);
-}
-
-export async function extendBooking(booking_id: number) {
-=======
 /**
  * Creates a new booking for a user.
  * @param {string} user_id - The ID of the user making the booking.
@@ -50,6 +35,5 @@ export async function returnBooking(booking_id: string) {
  * @returns {Promise<void>} A promise that resolves when the booking is extended.
  */
 export async function extendBooking(booking_id: string) {
->>>>>>> create-user
     await Meteor.callAsync('server_extendBooking', booking_id);
 }
