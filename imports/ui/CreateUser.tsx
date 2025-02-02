@@ -79,6 +79,7 @@ export const CreateUser = () => {
     return (
         <AdminContainer className='create-user-form'>
             <AdminForm onSubmit={handleCreateUser}>
+              <h1>Create Account</h1>
                 <label htmlFor='name'>Nom</label>
                 <input
                     type='text'
@@ -136,7 +137,8 @@ export const CreateUser = () => {
                 </ul>
 
                 <button type='submit'>Créer un compte</button>
-            </AdminForm>
-        </AdminContainer>
+              </AdminForm>
+              <button onClick={() => navigate("/")} className="create-account-button">Return to login</button>
+            </AdminContainer>
     );
 };
