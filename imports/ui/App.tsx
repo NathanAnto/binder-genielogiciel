@@ -30,8 +30,7 @@ export const App = () => {
                     <Fragment>
                         <BrowserRouter>
                             <Routes>
-                                <Route path="/" element={<LoginForm />} />
-                                <Route path='/swipe' element={<Swipe />} />
+                                <Route index element={<Swipe />} />
                                 <Route path='/profile' element={<Profile onLogout={onLogout} />} />
                                 <Route path='/bookings' element={<Bookings />} />
                             </Routes>
@@ -42,7 +41,7 @@ export const App = () => {
             ) : (
                 <BrowserRouter>
                     <Routes>
-                        <Route path="/" element={<LoginForm />} />
+                        <Route index element={<LoginForm />} />
                         <Route path="/create-user" element={<CreateUser />} />
                     </Routes>
                 </BrowserRouter>
