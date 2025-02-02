@@ -89,7 +89,7 @@ meteor
 
 ### Access the web page
 
-Open a web browser and type `https://localhost:3000`
+Open a web browser and type `localhost:3000`.
 
 ## More details
 
