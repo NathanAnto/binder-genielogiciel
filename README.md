@@ -65,7 +65,7 @@ git clone https://github.com/NathanAnto/binder-genielogiciel
 
 ### Installing Meteor packages
 #### Manually
-To run the application, the user needs to install packages like `react-d`, `@babel/runtime`, etc.
+To run the application, the user needs to install packages like `react-d`, `@babel/runtime`, etc in the project directory.
 
 To do it manually, type following command for each package.
 ```bash
@@ -80,16 +80,29 @@ meteor npm install
 ```
 
 ### Launch the project
-Launch the project using the following command in the project directory which contains the `.git` and `.meteor` files.
+Launch the project using the following command from the terminal in the project directory which contains `.git` and `.meteor` files.
 
 ```bash
 npm start
-meteor
 ```
 
 ### Access the web page
 
 Open a web browser and type `localhost:3000`.
+
+To test the application, the user can use two accounts types.
+#### Admin account
+
+```
+username    : Admin
+password    : test2 
+```
+
+#### User account
+```
+username    : Nathan
+password    : password
+```
 
 ## More details
 
